@@ -1,3 +1,5 @@
+import pprint
+
 class Sudoku:
 
     def __init__(self):
@@ -17,3 +19,7 @@ class Sudoku:
         for _ in range(size):
             self.board.append([0 for x in range(size)])
         return self.board
+
+    @staticmethod
+    def print_board(board: list):
+        pprint.pprint(board)
