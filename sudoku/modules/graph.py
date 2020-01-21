@@ -1,9 +1,12 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import matplotlib
 
 class Graph:
     
     def __init__(self):
+        matplotlib.use('TkAgg')
         self.board = nx.Graph()
         self.labels = dict()
         self.display_labels = dict()
@@ -97,6 +100,7 @@ class Graph:
         Parameters:
         board (list): board.
         '''
+        plt.clf()
         pos = dict((v,k) for k,v in self.labels.items())
         nx.draw_networkx(
             self.board,
@@ -107,3 +111,16 @@ class Graph:
         )
         plt.axis('off')
         plt.show()
+
+    def get_figure(self):
+        plt.clf()
+        pos = dict((v,k) for k,v in self.labels.items())
+        nx.draw_networkx(
+            self.board,
+            pos=pos,
+            with_labels=True, 
+            node_size=800,
+            labels=self.display_labels
+        )
+        plt.axis('off')
+        return plt.gcf()

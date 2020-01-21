@@ -6,7 +6,7 @@ class Sudoku:
     board = list()
 
     def get_empty_board(self, size: int) -> list:
-        #TODO: Check Sudoku board sizes. 3x3, 6x6, 9x9 ... Not all sizes are allowed.
+        #TODO: Check Sudoku board sizes. 4x4, 6x6, 9x9 ... Not all sizes are allowed.
         '''
         Generates an empty Sudoku board.
 
@@ -16,12 +16,13 @@ class Sudoku:
         Returns:
         list: An empty Sudoku board as a 2D list.
         '''
+        self.board = list()
         for _ in range(size):
             self.board.append([0 for x in range(size)])
         return self.board
 
     def get_solved_board(self, size: int) -> list:
-        #TODO: Check Sudoku board sizes. 3x3, 6x6, 9x9 ... Not all sizes are allowed.
+        #TODO: Check Sudoku board sizes. 4x4, 6x6, 9x9 ... Not all sizes are allowed.
         '''
         Generates a solved Sudoku board.
 
@@ -58,6 +59,7 @@ class Sudoku:
                 for j in range(self.num_sectors):
                     if self.possible_numbers:
                         self.board[i + self.num_sectors * cluster][j + self.num_sectors * cluster] = self.possible_numbers.pop()
+                        
         return self.board
 
     def _find_empty_field(self, board: list, value=0) -> tuple:
