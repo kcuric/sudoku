@@ -27,7 +27,7 @@ class Graph:
         for row in range(len(board)):
             for col in range(len(board)):
                 label += 1
-                self.labels[(row, col)] = label
+                self.labels[(col, row)] = label
                 self.display_labels[label] = board[row][col]
                 self.board.add_node(label)
     
@@ -115,6 +115,7 @@ class Graph:
     def get_figure(self):
         plt.clf()
         pos = dict((v,k) for k,v in self.labels.items())
+        plt.gca().invert_yaxis()
         nx.draw_networkx(
             self.board,
             pos=pos,

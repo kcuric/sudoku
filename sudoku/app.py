@@ -54,6 +54,9 @@ def _generate():
     global size
 
     # Reset
+    for child in tab1.winfo_children():
+        child.destroy()
+
     for child in tab2.winfo_children():
         child.destroy()
 
