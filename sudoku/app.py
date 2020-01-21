@@ -1,5 +1,6 @@
 from sudoku.modules.sudoku import Sudoku
 from sudoku.modules.graph import Graph
+from sudoku.modules.matrix import Matrix
 
 import tkinter
 from tkinter import ttk
@@ -14,6 +15,7 @@ root = tkinter.Tk()
 root.wm_title("Sudoku (Generator/Solver/Grapher)")
 sudoku = Sudoku()
 graph = Graph()
+matrix = Matrix()
 
 size = tkinter.IntVar()
 algorithm = tkinter.StringVar(root)
@@ -51,23 +53,19 @@ def run():
 def _generate():
     global size
 
+    # Reset
     for child in tab2.winfo_children():
         child.destroy()
 
+    # Generate new solved sudoku.
     board = sudoku.get_solved_board(size.get())
+
+    # Draw Matrix
+    matrix.get_figure(tab1, board).pack(expand=True)
+
+    # Draw Graph
     graph.create_graph(board)
     graph_fig = graph.get_figure()
-
-    matrix_frame = ttk.Frame(tab1)
-
-    height = size.get()
-    width = size.get()
-    for i in range(height): #Rows
-        for j in range(width): #Columns
-            b = tkinter.Label(matrix_frame, text="1",borderwidth=1, relief=tkinter.SOLID, height=5, width=5, fg="black", bg="#1F78B4")
-            b.grid(row=i, column=j)
-    matrix_frame.pack(expand=True)
-
     graph_canvas = FigureCanvasTkAgg(graph_fig, master=tab2) 
     graph_canvas.draw()
     graph_canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
