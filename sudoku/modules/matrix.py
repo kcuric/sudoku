@@ -16,7 +16,7 @@ class Matrix:
                     height=3, 
                     width=5, 
                     fg="black", 
-                    bg="#1F78B4"
+                    bg="white"
                 )
                 b.grid(row=i, column=j)
         return matrix_frame

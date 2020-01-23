@@ -1,4 +1,5 @@
-from sudoku.modules.sudoku import Sudoku
+from sudoku.modules.solver import Solver
+from sudoku.algorithms.algorithms import Algortihms
 from sudoku.modules.graph import Graph
 from sudoku.modules.matrix import Matrix
 
@@ -13,13 +14,12 @@ import numpy as np
 
 root = tkinter.Tk()
 root.wm_title("Sudoku (Generator/Solver/Grapher)")
-sudoku = Sudoku()
 graph = Graph()
 matrix = Matrix()
 
 size = tkinter.IntVar()
-algorithm = tkinter.StringVar(root)
-algorithm.set("Backtracking")
+algorithm = tkinter.IntVar(root)
+algorithm.set(Algortihms.BACKTRACKING)
 
 s = ttk.Style()
 s.configure('My.TFrame', background='white')
@@ -36,9 +36,13 @@ def run():
     frame = tkinter.Frame(root, height="200", width="200")
 
     layout = [
+        tkinter.Label(frame, text="Solving algorithm: "),
         tkinter.OptionMenu(frame, algorithm, "Backtracking", "DSatur"),
+        tkinter.Label(frame, text=" | "),
+        tkinter.Label(frame, text="Board size: "),
         tkinter.Radiobutton(master=frame, text="9x9", variable=size, value=9),
-        tkinter.Button(master=frame, text="Generate", command= _generate),
+        tkinter.Label(frame, text=" | "),
+        tkinter.Button(master=frame, text="Generate a solved board", command= _generate),
         tkinter.Button(master=frame, text="Quit", command=_quit)
     ]
 
@@ -61,7 +65,7 @@ def _generate():
         child.destroy()
 
     # Generate new solved sudoku.
-    board = sudoku.get_solved_board(size.get())
+    board = Solver.get_solved_board(9, Algortihms.BACKTRACKING)
 
     # Draw Matrix
     matrix.get_figure(tab1, board).pack(expand=True)

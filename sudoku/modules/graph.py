@@ -121,7 +121,7 @@ class Graph:
             pos=pos,
             with_labels=True, 
             node_size=800,
-            labels=self.display_labels
+            labels=self.display_labels,
         )
         plt.axis('off')
         return plt.gcf()
