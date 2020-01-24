@@ -3,8 +3,19 @@ from tkinter import ttk
 
 class Matrix:
 
-    def get_figure(self, master, board: list):
-        size = len(board)
+    def get_figure(self, master: object, board: list) -> object:
+        '''
+        Returns a visual representation of the sudoku
+        board in the form of a matrix.
+
+        Parameters:
+        master (int): Tkinter master element.
+        board (list): Sudoku board in form of a 2D list.
+
+        Returns:
+        object: Tkinter Frame containing the visual representation
+                of a sudoku board in form of a matrix.
+        '''
         matrix_frame = ttk.Frame(master=master)
         for i, row in enumerate(board): #Rows
             for j, element in enumerate(row): #Columns

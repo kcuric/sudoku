@@ -1,15 +1,16 @@
+from sudoku.entities.board import Board
 import random
+import math
 
 class Generator:        
 
     @staticmethod
-    def get_unsolved_board(size: int) -> list:
+    def get_unsolved_board(order: int) -> list:
         '''
         Generates an empty board and then it
-        populates the "diagonal" of the board with random
-        numbers. Definition of the "diagonal" can be found
-        in the README file as well as the explanation for
-        this.
+        populates the "diagonal clusters" of the board with random
+        numbers. Definition of the "diagonal cluster" can be found
+        in the README file.
 
         Parameters:
         size (int): Size of the Sudoku board (size x size).
@@ -17,20 +18,21 @@ class Generator:
         Returns:
         list: Semi populated Sudoku board as a 2D list.
         '''
-        board = list()
-        for _ in range(size):
-            board.append([0 for x in range(size)])
         
-        divider = 2 if size % 2 == 0 else 3
-        num_sectors = int(size / divider)
-        possible_numbers_count = num_sectors * num_sectors
-        for cluster in range(divider):
-            possible_numbers = list([x for x in range(1, possible_numbers_count + 1)])
-            possible_numbers = random.sample(possible_numbers, possible_numbers_count)
-            for i in range(num_sectors):
-                for j in range(num_sectors):
+        board = list()
+        for _ in range(order):
+            board.append([0 for x in range(order)])
+
+        cell_num = math.pow(order, 2)
+        cluster_order = int(math.sqrt(order))
+
+        for cluster in range(cluster_order):
+            possible_numbers = list([x for x in range(1, order + 1)])
+            possible_numbers = random.sample(possible_numbers, order)
+            for i in range(cluster_order):
+                for j in range(cluster_order):
                     if possible_numbers:
-                        board[i + num_sectors * cluster][j + num_sectors * cluster] = possible_numbers.pop()
+                        board[i + cluster_order * cluster][j + cluster_order * cluster] = possible_numbers.pop()
                         
         return board
 

@@ -2,6 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib
+import math
 
 class Graph:
     
@@ -45,21 +46,25 @@ class Graph:
                     self.board.add_edge(self.labels[row, col],
                         self.labels[row, col - 1])
                 except (IndexError, KeyError):
+                    #TODO: Exception handling.
                     pass
                 try:
                     self.board.add_edge(self.labels[row, col],
                         self.labels[row + 1, col])
                 except (IndexError, KeyError):
+                    #TODO: Exception handling.
                     pass
                 try:
                     self.board.add_edge(self.labels[row, col],
                         self.labels[row, col + 1])
                 except (IndexError, KeyError):
+                    #TODO: Exception handling.
                     pass
                 try:
                     self.board.add_edge(self.labels[row, col],
                         self.labels[row - 1, col])
                 except (IndexError, KeyError):
+                    #TODO: Exception handling.
                     pass
     
     def _add_cluster_edges(self, board: list):
@@ -69,21 +74,20 @@ class Graph:
         Parameters:
         board (list): board.
         '''
-        size = len(board)
-        divider = 2 if size % 2 == 0 else 3
-        num_sectors = int(size / divider)
+        order = len(board)
+        cluster_order = int(math.sqrt(order))
         
         # Find cluster beginnings
         cluster_beginnings = []
-        for i in range(0, size, divider):
-            for j in range(0, size, divider):
+        for i in range(0, order, cluster_order):
+            for j in range(0, order, cluster_order):
                 cluster_beginnings.append((i, j))
         
         # Iterate through cluster and add edges.
         for cluster in cluster_beginnings:
             current_cluster = []
-            for row in range(cluster[0], cluster[0] + divider):
-                for col in range(cluster[1], cluster[1] + divider):
+            for row in range(cluster[0], cluster[0] + cluster_order):
+                for col in range(cluster[1], cluster[1] + cluster_order):
                     current_cluster.append((row, col))
 
             for node in current_cluster:
@@ -112,7 +116,19 @@ class Graph:
         plt.axis('off')
         plt.show()
 
-    def get_figure(self):
+    def get_figure(self) -> object:
+        '''
+        Returns a visual representation of the sudoku
+        board in the form of a somewhat simplyfied graph.
+
+        Parameters:
+        master (int): Tkinter master element.
+        board (list): Sudoku board in form of a 2D list.
+
+        Returns:
+        object: Matplotlib polot containing the visual representation
+                of a sudoku board in form of a graph.
+        '''
         plt.clf()
         pos = dict((v,k) for k,v in self.labels.items())
         plt.gca().invert_yaxis()

@@ -12,50 +12,87 @@ from matplotlib.figure import Figure
 
 import numpy as np
 
+# Tkinter master elements.
+
 root = tkinter.Tk()
 root.wm_title("Sudoku (Generator/Solver/Grapher)")
-graph = Graph()
-matrix = Matrix()
-
-size = tkinter.IntVar()
-algorithm = tkinter.IntVar(root)
-algorithm.set(Algortihms.BACKTRACKING)
-
-s = ttk.Style()
-s.configure('My.TFrame', background='white')
-
 tab_parent = ttk.Notebook(root)
 tab1 = ttk.Frame(tab_parent, style='My.TFrame')
 tab2 = ttk.Frame(tab_parent, style='My.TFrame')
 tab_parent.add(tab1, text="Matrix")
 tab_parent.add(tab2, text="Graph")
 
+# Tkinter style
+
+s = ttk.Style()
+s.configure('My.TFrame', background='white')
+
+# Tkinter global variables
+
+size = tkinter.IntVar()
+algorithm = tkinter.IntVar()
+
+# Class instances for visual represenation
+graph = Graph()
+matrix = Matrix()
+
 def run():
-    global root
     
-    frame = tkinter.Frame(root, height="200", width="200")
+    bottom_menu = tkinter.Frame(root, height="200", width="200")
 
     layout = [
-        tkinter.Label(frame, text="Solving algorithm: "),
-        tkinter.OptionMenu(frame, algorithm, "Backtracking", "DSatur"),
-        tkinter.Label(frame, text=" | "),
-        tkinter.Label(frame, text="Board size: "),
-        tkinter.Radiobutton(master=frame, text="9x9", variable=size, value=9),
-        tkinter.Label(frame, text=" | "),
-        tkinter.Button(master=frame, text="Generate a solved board", command= _generate),
-        tkinter.Button(master=frame, text="Quit", command=_quit)
+        tkinter.Label(bottom_menu, text="Solving algorithm: "),
+        tkinter.OptionMenu(
+            bottom_menu, 
+            algorithm, 
+            Algortihms.BACKTRACKING, 
+            Algortihms.DSATUR, 
+            command=on_change_algorithm
+        ),
+        tkinter.Label(
+            bottom_menu, 
+            text="Board size: "
+        ),
+        tkinter.Radiobutton(
+            master=bottom_menu, 
+            text="9x9", 
+            variable=size, 
+            value=9
+        ),
+        tkinter.Button(
+            master=bottom_menu, 
+            text="Generate a solved board", 
+            command= on_generate_click
+        ),
+        tkinter.Button(
+            master=bottom_menu, 
+            text="Quit", 
+            command=on_quit
+        )
     ]
 
     tab_parent.pack(expand=1, fill='both')
-    frame.pack(side=tkinter.BOTTOM)
+    bottom_menu.pack(side=tkinter.BOTTOM)
 
     for element in layout:
         element.pack(side=tkinter.LEFT)
 
     tkinter.mainloop()
 
-def _generate():
-    global size
+def on_change_algorithm(alg):
+    '''
+    Event handler that exists only because there is no elegant way
+    to represent algorithm name with text inside the option menu
+    and store it's int value to the corresponding variable.
+    '''
+    algorithm.set(alg.value)
+
+def on_generate_click():
+    '''
+    Event handler with the purpose of generating the 
+    new solved sudoku board and visualy representing it
+    via the imported classes.
+    '''
 
     # Reset
     for child in tab1.winfo_children():
@@ -65,7 +102,7 @@ def _generate():
         child.destroy()
 
     # Generate new solved sudoku.
-    board = Solver.get_solved_board(9, Algortihms.BACKTRACKING)
+    board = Solver.get_solved_board(size.get(), algorithm.get())
 
     # Draw Matrix
     matrix.get_figure(tab1, board).pack(expand=True)
@@ -77,7 +114,9 @@ def _generate():
     graph_canvas.draw()
     graph_canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
 
-def _quit():
-    global root
+def on_quit():
+    '''
+    Event handler for successfully exiting the app.
+    '''
     root.quit()     
     root.destroy()  

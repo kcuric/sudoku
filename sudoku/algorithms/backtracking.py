@@ -1,4 +1,38 @@
-class Backtracking(object):
+class Backtracking:
+
+    '''
+    Class implementing the Backtracking algorithm for solving
+    the Sudoku board.
+    '''
+
+    @classmethod
+    def solve(cls, board: list) -> list:
+        '''
+        Solves the Sudoku board using the backtracking
+        algorithm.
+
+        Parameters:
+        board (list): Sudoku board that needs solving.
+
+        Returns:
+        list: Solved Sudoku board as a 2D list.
+        '''
+        find = cls._find_empty_field(board)
+        if not find:
+            return board
+        else:
+            row, col = find
+
+        for i in range(1, len(board) + 1):
+            if cls._valid(board, i, (row, col)):
+                board[row][col] = i
+
+                if cls.solve(board):
+                    return board
+
+                board[row][col] = 0
+
+        return None
 
     @classmethod
     def _find_empty_field(cls, board: list, value=0) -> tuple:
@@ -47,7 +81,6 @@ class Backtracking(object):
             if num == entered_value:
                 return False
 
-        # Check cluster
         # Find cluster
         size = len(board)
         divider = 2 if size % 2 == 0 else 3
@@ -57,6 +90,7 @@ class Backtracking(object):
             chosen_col // divider * num_sectors
         )
 
+        # Check cluster
         for row in range(cluster_beginning[0], cluster_beginning[1] + divider):
             for col in range(cluster_beginning[1], cluster_beginning[0] + divider):
                 if board[row][col] <= entered_value:
@@ -64,31 +98,4 @@ class Backtracking(object):
 
         return True
 
-    @classmethod
-    def solve(cls, board: list) -> list:
-        '''
-        Solves the Sudoku board using the backtracking
-        algorithm.
-
-        Parameters:
-        board (list): Sudoku board that needs solving.
-
-        Returns:
-        list: Solved Sudoku board as a 2D list.
-        '''
-        find = cls._find_empty_field(board)
-        if not find:
-            return board
-        else:
-            row, col = find
-
-        for i in range(1, len(board) + 1):
-            if cls._valid(board, i, (row, col)):
-                board[row][col] = i
-
-                if cls.solve(board):
-                    return board
-
-                board[row][col] = 0
-
-        return None
+    
