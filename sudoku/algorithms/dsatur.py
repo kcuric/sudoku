@@ -19,7 +19,7 @@ class DSatur:
         cls.size = len(cells)
         cls.order = int(math.sqrt(cls.size))
         cls.cluster_order = int(math.sqrt(cls.order))
-        
+
         cls.cells = cls._create_cells(cells,cls.size)
         cls.clusters = cls._define_clusters(cls.size,cls.cluster_order,cls.order)
         cls._find_neighbors(cls.order)
@@ -45,8 +45,8 @@ class DSatur:
         '''
         if cls._is_solved():
             return True
-        bigger_saturation_index = cls._find_biggest_saturation()
-        possible_values = cls.cells[bigger_saturation_index].possible_values(cls.order)
+        biggest_saturation_index = cls._find_biggest_saturation()
+        possible_values = cls.cells[biggest_saturation_index].possible_values(cls.order)
         if possible_values == -1:
             # Case if there are no possible values to enter to the cell.
             return False
@@ -54,13 +54,13 @@ class DSatur:
             # If the possible_colors list is empty.
             return False
         for value in possible_values:
-            cls.cells[bigger_saturation_index].set_content(value)
-            cls.cells[bigger_saturation_index].increase_saturation_neighbors()
+            cls.cells[biggest_saturation_index].set_content(value)
+            cls.cells[biggest_saturation_index].increase_saturation_neighbors()
             if cls.dSatur():
                 return True
             else:
-                cls.cells[bigger_saturation_index].decrease_saturation_neighbors()
-                cls.cells[bigger_saturation_index].set_content(0)
+                cls.cells[biggest_saturation_index].decrease_saturation_neighbors()
+                cls.cells[biggest_saturation_index].set_content(0)
         return False
 
     @classmethod
