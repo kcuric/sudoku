@@ -22,4 +22,11 @@ Position yourself to the root directory (the one containing this file, Pipfile, 
 python -m sudoku
 ```
 
+## How to use this? 😕
+1. Pick a solving algorithm
+2. **Tick the 9x9 radio button**. More Sudoku board sizes will be added in the future.
+3. Click "Generate a solved board" button.
+4. Observe the generated board as matrix or a graph.
+
+## Screenshots 📸
 
