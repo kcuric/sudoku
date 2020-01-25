@@ -32,6 +32,7 @@ s.configure('My.TFrame', background='white')
 size = tkinter.IntVar()
 size.set(9)
 algorithm = tkinter.IntVar()
+algorithm.set(1)
 
 # Class instances for visual represenation
 graph = Graph()
