@@ -1,13 +1,13 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_agg import FigureCanvasAgg
 import matplotlib
 import math
 
 class Graph:
     
     def __init__(self):
-        matplotlib.use('TkAgg')
+        matplotlib.use('agg')
         self.board = nx.Graph()
         self.labels = dict()
         self.display_labels = dict()
