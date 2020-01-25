@@ -1,6 +1,8 @@
 # Sudoku (Generation/Solving/Graph representation) 🔢
 Sudoku (Generation/Solving/Graph representation) provides the functionalities of generating a solved Sudoku board and representing that solved Sudoku board in the form of a matrix or in a form of a graph.
 
+Developed and tested with: Python 3.7.4.
+
 ## 📕 Description
 🇬🇧 ENG:
 Sudoku (Generation/Solving/Graph representation) firstly generates an unsolved 9x9 Sudoku board which is then solved using one of the chosen algorithms - currently those algorithms are the Backtracking algorithm and the DSatur algorithm. Solved Sudoku board is then visually represented to the user in a form of a matrix and a graph via the Graphical User Interface made with Tkinter and the embedded Matplotlib figures.
