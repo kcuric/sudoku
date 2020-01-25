@@ -1,6 +1,8 @@
 # Sudoku (Generation/Solving/Graph representation) 🔢
 Sudoku (Generation/Solving/Graph representation) provides the functionalities of generating a solved Sudoku board and representing that solved Sudoku board in the form of a matrix or in a form of a graph.
 
+Developed and tested with: Python 3.7.4.
+
 ## 📕 Description
 🇬🇧 ENG:
 Sudoku (Generation/Solving/Graph representation) firstly generates an unsolved 9x9 Sudoku board which is then solved using one of the chosen algorithms - currently those algorithms are the Backtracking algorithm and the DSatur algorithm. Solved Sudoku board is then visually represented to the user in a form of a matrix and a graph via the Graphical User Interface made with Tkinter and the embedded Matplotlib figures.
@@ -22,4 +24,13 @@ Position yourself to the root directory (the one containing this file, Pipfile, 
 python -m sudoku
 ```
 
+## How to use this? 😕
+1. Pick a solving algorithm
+2. **Tick the 9x9 radio button**. More Sudoku board sizes will be added in the future.
+3. Click "Generate a solved board" button.
+4. Observe the generated board as matrix or a graph.
 
+## Screenshots 📸
+![image](https://user-images.githubusercontent.com/29998991/73124632-c3771c80-3f9d-11ea-97c8-71e032e63dff.png)
+
+![image](https://user-images.githubusercontent.com/29998991/73124642-e9042600-3f9d-11ea-88cb-2234dd2f8a74.png)
