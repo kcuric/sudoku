@@ -29,4 +29,6 @@ python -m sudoku
 4. Observe the generated board as matrix or a graph.
 
 ## Screenshots 📸
+![image](https://user-images.githubusercontent.com/29998991/73124632-c3771c80-3f9d-11ea-97c8-71e032e63dff.png)
 
+![image](https://user-images.githubusercontent.com/29998991/73124642-e9042600-3f9d-11ea-88cb-2234dd2f8a74.png)
