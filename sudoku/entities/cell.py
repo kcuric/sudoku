@@ -5,7 +5,6 @@ class Cell:
         self.content = content
         self.neighbors = []
         self.saturation_degree = 0
-        self.degree = 0 # Number of neighbors
 
     def get_content(self) -> int:
         return self.content
@@ -15,7 +14,6 @@ class Cell:
 
     def set_neighbors(self, node):
         self.neighbors.append(node)
-        self.degree += 1
 
     def possible_values(self,order: int) -> list:
         '''

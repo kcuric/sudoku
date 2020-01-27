@@ -138,13 +138,13 @@ class DSatur:
         Returns the index of the node with the
         biggest saturation.
         '''
-        bigger_saturation = 0
-        bigger_index = 0
+        biggest_saturation = 0
+        biggest_index = 0
         for node in cls.cells:
-            if cls.cells[node].get_saturation() > bigger_saturation and cls.cells[node].get_content() == 0:
-                bigger_saturation = cls.cells[node].get_saturation()
-                bigger_index = node
-        return bigger_index  
+            if cls.cells[node].get_saturation() > biggest_saturation and cls.cells[node].get_content() == 0:
+                biggest_saturation = cls.cells[node].get_saturation()
+                biggest_index = node
+        return biggest_index  
 
     @classmethod
     def _is_solved(cls) -> bool:
