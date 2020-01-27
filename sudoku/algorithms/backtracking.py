@@ -1,3 +1,5 @@
+import math
+
 class Backtracking:
 
     '''
@@ -82,17 +84,17 @@ class Backtracking:
                 return False
 
         # Find cluster
-        size = len(board)
-        divider = 2 if size % 2 == 0 else 3
-        num_sectors = int(size / divider)
+        order = len(board)
+        cluster_order = int(math.sqrt(order))
+        num_clusters = int(order / cluster_order)
         cluster_beginning = (
-            chosen_row // divider * num_sectors, 
-            chosen_col // divider * num_sectors
+            chosen_row // cluster_order * num_clusters, 
+            chosen_col // cluster_order * num_clusters
         )
 
         # Check cluster
-        for row in range(cluster_beginning[0], cluster_beginning[1] + divider):
-            for col in range(cluster_beginning[1], cluster_beginning[0] + divider):
+        for row in range(cluster_beginning[0], cluster_beginning[1] + cluster_order):
+            for col in range(cluster_beginning[1], cluster_beginning[0] + cluster_order):
                 if board[row][col] <= entered_value:
                     return False
 
